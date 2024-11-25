@@ -4,75 +4,146 @@
 
 /* General styling */
 .root {
+    -fx-background-color: linear-gradient(to bottom, #f9f9f9, #e0e0e0); /* Subtle gradient */
     -fx-font-family: "Arial";
-    -fx-background-color: #f9f9f9;
 }
 
-/* Styling for the navigation bar */
+
+/* Navigation bar styling */
 .navigation-bar {
-    -fx-background-color: #2e3b4e;
+    -fx-background-color: #232f3e; /* Amazon's dark blue */
     -fx-padding: 10;
     -fx-spacing: 10;
 }
 
 .navigation-bar button {
-    -fx-background-color: #4caf50;
-    -fx-text-fill: white;
+    -fx-background-color: #febd69; /* Amazon's yellow */
+    -fx-text-fill: #232f3e; /* Dark blue text */
     -fx-font-size: 14px;
-    -fx-padding: 8 16;
+    -fx-padding: 10 20;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
 }
 
 .navigation-bar button:hover {
-    -fx-background-color: #45a049;
+    -fx-background-color: #f3a847; /* Slightly darker yellow */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
 }
 
-/* Styling for the top layout */
+/* Top layout styling (Filter and Upload Buttons) */
 .top-layout {
-    -fx-background-color: #ffffff;
-    -fx-padding: 10;
-    -fx-border-color: #ccc;
-    -fx-border-width: 0 0 2px 0;
+    -fx-background-color: #ffffff; /* Subtle gray */
+    -fx-padding: 15;
+    -fx-border-color: #d5d5d5;
+    -fx-border-width: 0 0 2px 0; /* Bottom border */
 }
 
 .top-layout button {
-    -fx-background-color: #2196f3;
+    -fx-background-color: #1e88e5; /* Blue buttons */
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-padding: 8 16;
+    -fx-padding: 10 20;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .top-layout button:hover {
-    -fx-background-color: #1976d2;
+    -fx-background-color: #1565c0; /* Darker blue on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
 }
 
-/* Styling for product cards */
+
+/* Product card styling */
 .product-card {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #ddd;
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #e0e0e0; /* Light gray border */
     -fx-border-width: 1;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
 }
 
 .product-card:hover {
-    -fx-border-color: #2196f3;
+    -fx-background-color: #f9f9f9; /* Slightly darker background on hover */
+    -fx-border-color: #1e88e5; /* Bright blue border on hover */
+    -fx-cursor: hand;
 }
 
-/* Styling for product labels */
+
+.product-card .product-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark text for better readability */
+    -fx-text-alignment: center;
+}
+
+.product-card .product-price {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4caf50; /* Green price text */
+}
+
+.product-card label {
+    -fx-text-fill: #333333; /* Ensure all text inside product cards is dark gray */
+}
+
+/* Product card image */
+.product-card .product-image {
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+}
+
+
+/* Product grid styling */
+.product-grid {
+    -fx-hgap: 25; /* Horizontal gap between cards */
+    -fx-vgap: 25; /* Vertical gap between cards */
+    -fx-padding: 20;
+}
+
+
+/* General button styling */
+.button {
+    -fx-background-color: #febd69; /* Light yellow */
+    -fx-text-fill: #232f3e; /* Dark blue text */
+    -fx-font-size: 14px; /* Increase font size for readability */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 10 20; /* Add padding */
+    -fx-border-radius: 5; /* Rounded corners */
+    -fx-background-radius: 5; /* Consistent rounding */
+    -fx-cursor: hand; /* Change cursor to pointer */
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #f3a847; /* Slightly darker yellow */
+    -fx-text-fill: #232f3e; /* Ensure text is still visible */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+/* Disabled button styling */
+.button:disabled {
+    -fx-background-color: #e0e0e0; /* Gray background */
+    -fx-text-fill: #a0a0a0; /* Light gray text */
+}
+
+
+/* Styling for product name labels */
 .product-label {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
+    -fx-text-fill: #555555; /* Gray text */
 }
 
+/* Styling for product descriptions */
 .product-description {
     -fx-font-size: 14px;
-    -fx-text-fill: #555;
+    -fx-text-fill: #666666;
+    -fx-text-alignment: center;
 }

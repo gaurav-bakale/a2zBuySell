@@ -8,8 +8,8 @@ public class NavigationBar {
 
     public VBox getNavigationBar(ProductListArea productListArea, ProductManager productManager) {
         VBox navigationBar = new VBox(10);
-        navigationBar.setPadding(new Insets(10));
-        navigationBar.setStyle("-fx-background-color: #F0F0F0;");
+        //navigationBar.setPadding(new Insets(10));
+        //navigationBar.setStyle("-fx-background-color: #F0F0F0;");
         navigationBar.getStyleClass().add("navigation-bar");
 
         // Category buttons

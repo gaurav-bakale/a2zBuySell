@@ -70,7 +70,7 @@ public class Main extends Application {
 
      // Top Layout: Filter by Price and Upload Product
         HBox topLayout = new HBox(10);
-        topLayout.setPadding(new Insets(10));
+        //topLayout.setPadding(new Insets(10));
         topLayout.getStyleClass().add("top-layout");
 
         // Filter by Price Button
@@ -94,9 +94,9 @@ public class Main extends Application {
 
      // Set the scene
         Scene scene = new Scene(root, 1000, 700);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); // Add the stylesheet
-        primaryStage.setTitle("Second-hand Goods Trading Platform");
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); // Link CSS
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Second-hand Goods Trading Platform");
         primaryStage.show();
 
     }

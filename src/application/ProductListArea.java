@@ -16,10 +16,12 @@ public class ProductListArea {
         this.allProducts = products;
         this.productListArea = new VBox(10);
         this.productGrid = new GridPane();
-        productListArea.setPadding(new Insets(10));
-        productGrid.setHgap(10);
-        productGrid.setVgap(10);
+        //productListArea.setPadding(new Insets(10));
+        productGrid.setHgap(25);
+        productGrid.setVgap(25);
         productListArea.getChildren().add(productGrid);
+        productGrid.getStyleClass().add("product-grid");
+
         showAllProducts();
     }
 
