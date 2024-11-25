@@ -14,15 +14,14 @@ public class FilterMenu {
         filterMenu.setStyle("-fx-background-color: #F0F0F0;");
 
         Button filterByPriceButton = new Button("Filter by Price");
-
-        // Action for filtering by price
         filterByPriceButton.setOnAction(e -> openPriceFilterDialog(productListArea, primaryStage));
 
         filterMenu.getChildren().addAll(filterByPriceButton);
         return filterMenu;
     }
 
-    private void openPriceFilterDialog(ProductListArea productListArea, Stage parentStage) {
+    // Make this method public
+    public void openPriceFilterDialog(ProductListArea productListArea, Stage parentStage) {
         // Create a new stage for filtering options
         Stage filterStage = new Stage();
         filterStage.setTitle("Filter by Price");

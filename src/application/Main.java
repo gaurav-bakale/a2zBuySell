@@ -1,8 +1,13 @@
 package application;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,17 +66,39 @@ public class Main extends Application {
 
         // Navigation Bar
         NavigationBar navigationBar = new NavigationBar();
-        root.setLeft(navigationBar.getNavigationBar(productListArea, productManager)); // Updated to pass both arguments
+        root.setLeft(navigationBar.getNavigationBar(productListArea, productManager));
 
-        // Filter Menu
-        FilterMenu filterMenu = new FilterMenu();
-        root.setTop(filterMenu.getFilterMenu(productListArea, primaryStage));
+     // Top Layout: Filter by Price and Upload Product
+        HBox topLayout = new HBox(10);
+        topLayout.setPadding(new Insets(10));
+        topLayout.getStyleClass().add("top-layout");
 
-        // Set the scene
+        // Filter by Price Button
+        Button filterByPriceButton = new Button("Filter by Price");
+        filterByPriceButton.setOnAction(e -> {
+            FilterMenu filterMenu = new FilterMenu();
+            filterMenu.openPriceFilterDialog(productListArea, primaryStage);
+        });
+
+        // Upload Product Button
+        Button uploadProductButton = new Button("Upload Product");
+        uploadProductButton.setOnAction(e -> {
+            OwnerUploadPage ownerUploadPage = new OwnerUploadPage();
+            ownerUploadPage.start(new Stage());
+        });
+
+        // Add buttons to the top layout
+        topLayout.getChildren().addAll(filterByPriceButton, uploadProductButton);
+        root.setTop(topLayout);
+
+
+     // Set the scene
         Scene scene = new Scene(root, 1000, 700);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); // Add the stylesheet
         primaryStage.setTitle("Second-hand Goods Trading Platform");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

@@ -10,8 +10,9 @@ public class NavigationBar {
         VBox navigationBar = new VBox(10);
         navigationBar.setPadding(new Insets(10));
         navigationBar.setStyle("-fx-background-color: #F0F0F0;");
+        navigationBar.getStyleClass().add("navigation-bar");
 
-        // Example category buttons
+        // Category buttons
         Button electronicsButton = new Button("Electronics");
         Button furnitureButton = new Button("Furniture");
         Button booksButton = new Button("Books");
@@ -21,15 +22,8 @@ public class NavigationBar {
         furnitureButton.setOnAction(e -> productListArea.filterProductsByCategory("Furniture"));
         booksButton.setOnAction(e -> productListArea.filterProductsByCategory("Books"));
 
-        // Add "Upload Product" button for the owner
-        Button uploadProductButton = new Button("Upload Product");
-        uploadProductButton.setOnAction(e -> {
-            OwnerUploadPage ownerUploadPage = new OwnerUploadPage();
-            ownerUploadPage.start(new javafx.stage.Stage());
-        });
-
-        // Add buttons to the navigation bar
-        navigationBar.getChildren().addAll(electronicsButton, furnitureButton, booksButton, uploadProductButton);
+        // Add category buttons to the navigation bar
+        navigationBar.getChildren().addAll(electronicsButton, furnitureButton, booksButton);
 
         return navigationBar;
     }

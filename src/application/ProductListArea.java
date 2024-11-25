@@ -48,7 +48,10 @@ public class ProductListArea {
         productGrid.getChildren().clear();
         for (int i = 0; i < products.size(); i++) {
             ProductCard productCard = new ProductCard(products.get(i));
-            productGrid.add(productCard.getProductCard(), i % 3, i / 3);
+            VBox card = productCard.getProductCard(); // Get the styled product card
+            card.getStyleClass().add("product-card"); // Ensure the style is applied here (optional)
+
+            productGrid.add(card, i % 3, i / 3); // Add product card to the grid (3 columns 
         }
     }
 
