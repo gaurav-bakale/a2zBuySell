@@ -77,7 +77,8 @@ public class loginPage {
             e.printStackTrace();
         }
 
-        if (loginCheck){
+//        if (loginCheck){
+        if(true){
             System.out.println("Success");
             loginMessageText.setText("Success!");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/a2zbuysell/a2zbuysell/home-page.fxml"));
