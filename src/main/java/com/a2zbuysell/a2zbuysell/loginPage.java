@@ -86,6 +86,8 @@ public class loginPage {
             try {
                 Scene homeScene = new Scene(loader.load());
                 Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setWidth(800);  // Set the fixed width
+                stage.setHeight(600);
                 stage.setScene(homeScene);
                 stage.show();
             } catch (IOException e) {

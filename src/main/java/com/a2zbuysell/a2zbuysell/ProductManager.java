@@ -38,7 +38,7 @@ public class ProductManager {
                         on p.user_id = u.id
                         """
         );
-        System.out.println(res.getFirst().get(7).getClass());
+        products.clear();
         for (List<Object> r : res){
             System.out.println(r);
             products.add(

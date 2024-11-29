@@ -20,21 +20,5 @@ public class Application extends javafx.application.Application {
 
     public static void main(String[] args) throws SQLException, SQLException {
         launch();
-
-//        // database connect testing
-//        DBManager dbm = new DBManager();
-//        List<List<Object>> res = dbm.executeQuery("Select * from products;");
-//        System.out.println(res);
-
-        // product testing
-//        Product prod = new Product(
-//            1, "test","test",22.99,"good","test","test");
-//        System.out.println(prod.getCategory());
-
-        // productManager Testing
-//        ProductManager pm = new ProductManager();
-//        pm.loadProducts();
-//        System.out.println(pm.products.getFirst());
-
     }
 }

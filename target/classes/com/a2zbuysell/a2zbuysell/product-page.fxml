@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,10 +16,19 @@
     <top>
         <VBox BorderPane.alignment="CENTER">
             <HBox fx:id="appTitleBar" alignment="CENTER" prefHeight="65.0" prefWidth="600.0">
-                <Label fx:id="appTitleLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="A2ZBuySell"
-                       textAlignment="CENTER">
+                <ImageView fx:id="goBackButton" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#goBackClick"
+                           opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets right="30.0"/>
+                    </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                    <Image url="@back.jpg"/>
+                </ImageView>
+                <Label fx:id="appTitleLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="A2ZBuySell" textAlignment="CENTER">
                     <font>
-                        <Font size="35.0"/>
+                        <Font size="35.0" />
                     </font>
                 </Label>
             </HBox>
@@ -34,32 +45,44 @@
         </HBox>
     </bottom>
    <center>
-       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-           <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <ImageView fx:id="productImage" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
               <HBox.margin>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
               </HBox.margin>
            </ImageView>
            <VBox alignment="CENTER_LEFT" spacing="20.0">
                <padding>
-                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <opaqueInsets>
-                   <Insets/>
+                   <Insets />
                </opaqueInsets>
-               <Label fx:id="titleLabel" layoutX="30.0" layoutY="322.0" text="Title"/>
-               <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="200.0"/>
-               <Label fx:id="descriptionLabel" layoutX="30.0" layoutY="341.0" text="Description"/>
-               <Text fx:id="descriptionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Description"
-                     wrappingWidth="200.0"/>
-               <Label fx:id="priceLabel" layoutX="30.0" layoutY="360.0" text="Price"/>
-               <Text fx:id="priceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="200.0"/>
-               <Label fx:id="postedByLabel" layoutX="30.0" layoutY="379.0" text="Posted by"/>
-               <Text fx:id="postedByText" strokeType="OUTSIDE" strokeWidth="0.0" text="Posted by"
-                     wrappingWidth="200.0"/>
-               <Label fx:id="contactInformationLabel" text="Contanct information"/>
-               <Text fx:id="contactInformationText" strokeType="OUTSIDE" strokeWidth="0.0"
-                     text="Contact information" wrappingWidth="200.0"/>
+               <Label fx:id="titleLabel" layoutX="30.0" layoutY="322.0" text="Title" />
+               <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
+               <Label fx:id="descriptionLabel" layoutX="30.0" layoutY="341.0" text="Description" />
+               <Text fx:id="descriptionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
+               <Label fx:id="priceLabel" layoutX="30.0" layoutY="360.0" text="Price" />
+               <Text fx:id="priceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
+               <Label fx:id="postedByLabel" layoutX="30.0" layoutY="379.0" text="Posted by" />
+               <Text fx:id="postedByText" strokeType="OUTSIDE" strokeWidth="0.0" text="Posted by" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
+               <Label fx:id="contactInformationLabel" text="Contanct information" />
+               <Text fx:id="contactInformationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact information" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
            </VBox>
        </HBox>
    </center>
