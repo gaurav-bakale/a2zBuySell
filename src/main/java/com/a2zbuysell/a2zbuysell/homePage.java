@@ -8,13 +8,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+
+import javafx.stage.Stage;
+
+
 
 public class homePage {
 
@@ -95,8 +104,24 @@ public class homePage {
     }
 
     @FXML
-    void productImageClick(MouseEvent event) {
+    void productImageClick(MouseEvent event) throws IOException, SQLException {
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/a2zbuysell/a2zbuysell/productPage.fxml"));
 
+        // Load the scene
+        Scene scene = new Scene(loader.load());
+
+        // Get the controller from the FXMLLoader
+        productPage productPageController = loader.getController();
+
+        // Pass the productId to the controller's initialize method
+        Product product = null;
+        productPageController.initialize(product);
+
+        // Create a new Stage to show the product page
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -109,7 +134,7 @@ public class homePage {
 
     }
     @FXML
-    void initialize() throws SQLException {
+    void initialize() throws IOException, SQLException {
         ProductManager pm = new ProductManager();
         pm.loadProducts();
 
@@ -120,10 +145,22 @@ public class homePage {
 
             HBox hbox = new HBox();
 
-            ImageView prodImage = new ImageView("https://b2861582.smushcdn.com/2861582/wp-content/uploads/2023/02/splash-01-605-v1.png?lossy=2&strip=1&webp=1");
+            ImageView prodImage = new ImageView();
+            byte[] imageBytes = product.getImage();
+            if (imageBytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+                Image image = new Image(bis);
+                prodImage.setImage(image);
+            }
             prodImage.setFitWidth(100);
             prodImage.setFitHeight(100);
-            prodImage.setOnMouseClicked(this::productImageClick);
+            prodImage.setOnMouseClicked(event -> {
+                try {
+                    productImageClick(event);
+                } catch (IOException | SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             prodImage.setPreserveRatio(true);
             prodImage.setPickOnBounds(true);
 

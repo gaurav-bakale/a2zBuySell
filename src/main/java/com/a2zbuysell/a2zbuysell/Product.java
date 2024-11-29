@@ -1,7 +1,19 @@
 package com.a2zbuysell.a2zbuysell;
 
 public class Product {
-
+//    p.id,
+//    p.title,
+//    p.description,
+//    price,
+//    condition,
+//    c.name as category,
+//    s.name as subcategory,
+//    pi.image,
+//    u.username ,
+//    u.email ,
+//    u.phone_number,
+//    p.date_created
+//
     Integer id;
     String title;
     String description;
@@ -9,8 +21,13 @@ public class Product {
     String condition;
     String category;
     String subcategory;
+    byte[] image;
+    String username;
+    String email;
+    String phone_number;
+    String date_created;
 
-    Product(Integer id, String title, String description, Double price, String condition, String category, String subcategory){
+    public Product(Integer id, String title, String description, Double price, String condition, String category, String subcategory, byte[] image, String username, String email, String phone_number, String date_created) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -18,8 +35,12 @@ public class Product {
         this.condition = condition;
         this.category = category;
         this.subcategory = subcategory;
+        this.image = image;
+        this.username = username;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.date_created = date_created;
     }
-
 
     public Integer getId() {
         return id;
@@ -77,7 +98,44 @@ public class Product {
         this.subcategory = subcategory;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(String date_created) {
+        this.date_created = date_created;
+    }
 
 }

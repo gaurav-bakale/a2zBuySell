@@ -13,16 +13,34 @@ public class ProductManager {
         DBManager dbm = new DBManager();
         List<List<Object>> res = dbm.executeQuery(
                 """
-                        select p.id, p.title, p.description, price, condition, c.name as category, s.name as subcategory
-                        from products p
+                        select
+                        	p.id,
+                        	p.title,
+                        	p.description,
+                        	price,
+                        	condition,
+                        	c.name as category,
+                        	s.name as subcategory,
+                        	pi.image,
+                        	u.username ,
+                        	u.email ,
+                        	u.phone_number,
+                        	p.date_created
+                        from
+                        	products p
                         inner join categories c
                         on p.category_id = c.id
-                        INNER  join subcategories s
+                        INNER join subcategories s
                         on p.subcategory_id = s.id
+                        inner join product_images pi
+                        on p.id = pi.product_id
+                        inner JOIN users u
+                        on p.user_id = u.id
                         """
         );
-
+        System.out.println(res.getFirst().get(7).getClass());
         for (List<Object> r : res){
+            System.out.println(r);
             products.add(
                     new Product(
                             (Integer) r.get(0),
@@ -31,8 +49,13 @@ public class ProductManager {
                             (Double) r.get(3),
                             (String) r.get(4),
                             (String) r.get(5),
-                            (String) r.get(6)
-                    )
+                            (String) r.get(6),
+                            (byte[]) r.get(7),
+                            (String) r.get(8),
+                            (String) r.get(9),
+                            (String) r.get(10),
+                            (String) r.get(11)
+                            )
             );
         }
     }
