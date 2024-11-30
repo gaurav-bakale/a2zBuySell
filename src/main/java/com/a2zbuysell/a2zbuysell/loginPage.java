@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -32,6 +32,7 @@ public class loginPage {
     public Button termsButton;
     public Button privacyButton;
     public VBox FullPageVbox;
+    public Button createAccountButton;
     @FXML
     private ResourceBundle resources;
 
@@ -86,8 +87,8 @@ public class loginPage {
             try {
                 Scene homeScene = new Scene(loader.load());
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setWidth(800);  // Set the fixed width
-                stage.setHeight(600);
+                stage.setWidth(1200);  // Set the fixed width
+                stage.setHeight(900);
                 stage.setScene(homeScene);
                 stage.show();
             } catch (IOException e) {
@@ -105,4 +106,14 @@ public class loginPage {
     void initialize() {
     }
 
+    public void createAccountButtonClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/a2zbuysell/a2zbuysell/create-account-page.fxml"));
+
+        Scene createAccountScene = new Scene(loader.load());
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setWidth(1200);
+        stage.setHeight(900);
+        stage.setScene(createAccountScene);
+        stage.show();
+    }
 }

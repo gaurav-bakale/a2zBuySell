@@ -112,61 +112,6 @@ public class homePage {
     ArrayList<Product> products;
     HashMap<String, ArrayList<String>> categoriesMapping = new HashMap<>();
 
-    void setAllProducts() throws SQLException {
-        loadAllProducts();
-        setProdutcts();
-    }
-
-    @FXML
-    void clearFilters(ActionEvent event) throws SQLException {
-        setAllProducts();
-    }
-
-    @FXML
-    void productBuyNow(ActionEvent event) {
-
-    }
-
-    @FXML
-    void productImageClick(MouseEvent event, Product finalProduct) throws IOException, SQLException {
-        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("product-page.fxml"));
-
-        // Load the scene
-        Scene scene = new Scene(loader.load());
-
-//         Get the controller from the FXMLLoader
-        productPage productPageController = loader.getController();
-//
-        // Pass the productId to the controller's initialize method
-        productPageController.initialize(finalProduct);
-
-        // Create a new Stage to show the product page
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setWidth(800);  // Set the fixed width
-        stage.setHeight(600);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void searchButton(ActionEvent event) throws SQLException {
-
-        // clear the dropdowns
-        categoriesDropdown.setValue("");
-        subcategoriesDropDown.setValue("");
-
-        // load all the products
-        loadAllProducts();
-
-        String searchString = searchField.getText();
-        products.removeIf(product-> !product.getTitle().toLowerCase().contains(searchString.toLowerCase()));
-        setProdutcts();
-
-    }
-
-    @FXML
-    void searchFieldClick(ActionEvent event) {}
 
     void loadAllProducts() throws SQLException {
         ProductManager pm = new ProductManager();
@@ -187,15 +132,15 @@ public class homePage {
 
             ImageView prodImage = new ImageView();
             byte[] imageBytes = product.getImage();
-            if (imageBytes != null) {
+            if (imageBytes.length != 0) {
                 ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
                 Image image = new Image(bis);
                 prodImage.setImage(image);
+                prodImage.setFitWidth(100);
+                prodImage.setFitHeight(100);
+                prodImage.setPreserveRatio(true);
+                prodImage.setPickOnBounds(true);
             }
-            prodImage.setFitWidth(100);
-            prodImage.setFitHeight(100);
-            prodImage.setPreserveRatio(true);
-            prodImage.setPickOnBounds(true);
 
             Product finalProduct = product;
             prodImage.setOnMouseClicked(event -> {
@@ -213,7 +158,14 @@ public class homePage {
             productPriceText.setWrappingWidth(100.0);
 
             Button productBuyButton = new Button("Buy now");
-            productBuyButton.setOnAction(this::productBuyNow);
+//            productBuyButton.setOnAction(this::productBuyNow);
+            productBuyButton.setOnMouseClicked(event -> {
+                try {
+                    productImageClick(event, finalProduct);
+                } catch (IOException | SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             hbox.getChildren().addAll(prodImage, productTitleText, productPriceText, productBuyButton);
             hbox.setLayoutX(10.0);
@@ -228,7 +180,14 @@ public class homePage {
         productsDetailsVbox.setFillWidth(true);
     }
 
+    void setAllProducts() throws SQLException {
+        loadAllProducts();
+        setProdutcts();
+    }
+
     void setCategoriesDropdown() throws SQLException {
+
+        categoriesDropdown.getItems().clear();
 
         List<List<Object>> res = dbm.executeQuery("""
                     select
@@ -277,6 +236,87 @@ public class homePage {
 
     }
 
+    @FXML
+    public void categoryFilterClick(ActionEvent actionEvent) throws SQLException {
+
+        String category = categoriesDropdown.getValue();
+
+        // filter the products according to the category
+        setAllProducts();
+        products.removeIf(product-> !product.getCategory().equals(category));
+        setProdutcts();
+
+        // set the subcategories based on the category selected
+        setSubcategoriesDropDown(category);
+
+        // clear the search box
+        searchField.setText("");
+    }
+
+    @FXML
+    public void subcategoryFilterClick(ActionEvent actionEvent) throws SQLException {
+
+        // filter products based on the subcategory selected
+        String subcategory = subcategoriesDropDown.getValue();
+
+        // filter the products according to the category
+        products.removeIf(product-> !product.getSubcategory().equals(subcategory));
+        setProdutcts();
+    }
+
+    @FXML
+    void clearFilters(ActionEvent event) throws SQLException {
+        setAllProducts();
+        setCategoriesDropdown();
+        subcategoriesDropDown.getItems().clear();
+    }
+
+    @FXML
+    void searchFieldClick(ActionEvent event) {}
+
+    @FXML
+    void searchButton(ActionEvent event) throws SQLException {
+
+        // clear the dropdowns
+        setCategoriesDropdown();
+        subcategoriesDropDown.getItems().clear();
+
+        // load all the products
+        setAllProducts();
+
+        String searchString = searchField.getText();
+        products.removeIf(product-> !product.getTitle().toLowerCase().contains(searchString.toLowerCase()));
+        setProdutcts();
+
+    }
+
+    @FXML
+    void productBuyNow(ActionEvent event) {
+
+    }
+
+    @FXML
+    void productImageClick(MouseEvent event, Product finalProduct) throws IOException, SQLException {
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("product-page.fxml"));
+
+        // Load the scene
+        Scene scene = new Scene(loader.load());
+
+//         Get the controller from the FXMLLoader
+        productPage productPageController = loader.getController();
+//
+        // Pass the productId to the controller's initialize method
+        productPageController.initialize(finalProduct);
+
+        // Create a new Stage to show the product page
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setWidth(1200);  // Set the fixed width
+        stage.setHeight(900);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     @FXML
     void initialize() throws IOException, SQLException {
@@ -301,37 +341,10 @@ public class homePage {
 
         // shift to login page
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setWidth(800);  // Set the fixed width
-        stage.setHeight(600);
+        stage.setWidth(1200);  // Set the fixed width
+        stage.setHeight(900);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void categoryFilterClick(ActionEvent actionEvent) throws SQLException {
-
-        String category = categoriesDropdown.getValue();
-
-        // filter the products according to the category
-        loadAllProducts();
-        products.removeIf(product-> !product.getCategory().equals(category));
-        setProdutcts();
-
-        // set the subcategories based on the category selected
-        setSubcategoriesDropDown(category);
-
-        // clear the search box
-        searchField.setText("");
-
-    }
-
-    public void subcategoryFilterClick(ActionEvent actionEvent) throws SQLException {
-
-        // filter products based on the subcategory selected
-        String subcategory = subcategoriesDropDown.getValue();
-
-        // filter the products according to the category
-        loadAllProducts();
-        products.removeIf(product-> !product.getSubcategory().equals(subcategory));
-        setProdutcts();
-    }
 }

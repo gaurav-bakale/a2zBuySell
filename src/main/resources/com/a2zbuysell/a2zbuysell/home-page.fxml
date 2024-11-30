@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a2zbuysell.a2zbuysell.homePage">
+<BorderPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a2zbuysell.a2zbuysell.homePage">
    <top>
        <VBox BorderPane.alignment="CENTER">
            <HBox fx:id="appTitleBar" alignment="CENTER" prefHeight="65.0" prefWidth="600.0">
@@ -84,8 +84,8 @@
    </VBox>
    </left>
    <center>
-       <ScrollPane BorderPane.alignment="CENTER" fitToWidth="true" fitToHeight="true">
-           <VBox fx:id="productsDetailsVbox" alignment="CENTER" fillWidth="true"  spacing="10">
+       <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+           <VBox fx:id="productsDetailsVbox" alignment="CENTER" fillWidth="true" spacing="10">
            </VBox>
        </ScrollPane>
    </center>

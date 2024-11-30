@@ -115,8 +115,8 @@ public class productPage {
 
         // Create a new Stage to show the product page
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setWidth(800);  // Set the fixed width
-        stage.setHeight(600);
+        stage.setWidth(1200);  // Set the fixed width
+        stage.setHeight(900);
         stage.setScene(scene);
         stage.show();
     }
