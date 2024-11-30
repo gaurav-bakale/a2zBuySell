@@ -21,6 +21,9 @@ import javafx.scene.text.Text;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXMLLoader;
@@ -32,8 +35,14 @@ import javafx.stage.Stage;
 
 public class homePage {
 
+    DBManager dbm = new DBManager();
+
+    @FXML
     public Button sellProduct;
+
+    @FXML
     public Button logout;
+
     @FXML
     private Button aboutButton;
 
@@ -44,7 +53,7 @@ public class homePage {
     private Label appTitleLabel;
 
     @FXML
-    private ComboBox<?> categoriesDropdown;
+    private ComboBox<String> categoriesDropdown;
 
     @FXML
     private Label categoriesLabel;
@@ -92,7 +101,7 @@ public class homePage {
     private HBox searchHBox;
 
     @FXML
-    private ComboBox<?> subcategoriesDropDown;
+    private ComboBox<String> subcategoriesDropDown;
 
     @FXML
     private Label subcategoriesLabel;
@@ -100,9 +109,17 @@ public class homePage {
     @FXML
     private Button termsButton;
 
-    @FXML
-    void clearFilters(ActionEvent event) {
+    ArrayList<Product> products;
+    HashMap<String, ArrayList<String>> categoriesMapping = new HashMap<>();
 
+    void setAllProducts() throws SQLException {
+        loadAllProducts();
+        setProdutcts();
+    }
+
+    @FXML
+    void clearFilters(ActionEvent event) throws SQLException {
+        setAllProducts();
     }
 
     @FXML
@@ -133,25 +150,38 @@ public class homePage {
     }
 
     @FXML
-    void searchButton(ActionEvent event) {
+    void searchButton(ActionEvent event) throws SQLException {
+
+        // clear the dropdowns
+        categoriesDropdown.setValue("");
+        subcategoriesDropDown.setValue("");
+
+        // load all the products
+        loadAllProducts();
+
+        String searchString = searchField.getText();
+        products.removeIf(product-> !product.getTitle().toLowerCase().contains(searchString.toLowerCase()));
+        setProdutcts();
 
     }
 
     @FXML
-    void searchFiledClick(ActionEvent event) {
+    void searchFieldClick(ActionEvent event) {}
 
-    }
-
-    Product activeProduct;
-    @FXML
-    void initialize() throws IOException, SQLException {
+    void loadAllProducts() throws SQLException {
         ProductManager pm = new ProductManager();
         pm.loadProducts();
+        products = pm.products;
+
+    }
+
+    void setProdutcts(){
 
         Product product;
-        for (int i = 0; i < pm.products.size(); i++) {
+        productsDetailsVbox.getChildren().clear();
+        for (int i = 0; i < products.size(); i++) {
 
-            product = pm.products.get(i);
+            product = products.get(i);
 
             HBox hbox = new HBox();
 
@@ -194,40 +224,114 @@ public class homePage {
 
             productsDetailsVbox.getChildren().add(hbox);
 
-            // set the categories
-
-////            DBManager dbm = new DBManager();
-////
-////            List<List<Object>> res = dbm.executeQuery("""
-////                    select
-////                    	c.id as category_id,
-////                    	c.name as category,
-////                    	s.id as subcategory_id,
-////                    	s.name as subcategory
-////                    from
-////                    	categories c
-////                    inner join
-////                    subcategories s
-////                    on
-////                    	c.id = s.category_id
-////            """);
-////
-////            ObservableList<String> categories = FXCollections.observableArrayList(
-////                    "Electronics",
-////                    "Clothing",
-////                    "Books",
-////                    "Furniture",
-////                    "Toys"
-////            );
-//
-//            // Set options to the ComboBox
-//            categoriesDropdown.setItems(categories);
         }
+        productsDetailsVbox.setFillWidth(true);
+    }
+
+    void setCategoriesDropdown() throws SQLException {
+
+        List<List<Object>> res = dbm.executeQuery("""
+                    select
+                    	c.id as category_id,
+                    	c.name as category,
+                    	s.id as subcategory_id,
+                    	s.name as subcategory
+                    from
+                    	categories c
+                    inner join
+                    subcategories s
+                    on
+                    	c.id = s.category_id
+            """);
+
+        // create a hashmap of categories and subcategories mapping
+        HashMap<String, ArrayList<String>> categoriesMapping = new HashMap<>();
+        ArrayList<String> list;
+        for (List<Object> r : res) {
+            if (categoriesMapping.containsKey(r.get(1))) {
+                categoriesMapping.get((String) r.get(1)).add((String) r.get(3));
+            } else {
+                list = new ArrayList<>();
+
+                list.add((String) r.get(3));
+                categoriesMapping.put(
+                        (String) r.get(1),
+                        list
+                );
+            }
+        }
+        this.categoriesMapping = categoriesMapping;
+        categoriesDropdown.getItems().addAll(categoriesMapping.keySet());
+    }
+
+    void setSubcategoriesDropDown(String category){
+
+        // set the subcategories based on the category
+        subcategoriesDropDown.getItems().clear();
+        subcategoriesDropDown.setPromptText("Select");
+        subcategoriesDropDown.setValue("");
+        subcategoriesDropDown.getItems().addAll(
+                categoriesMapping.get(category)
+        );
+
+
+    }
+
+
+    @FXML
+    void initialize() throws IOException, SQLException {
+
+        // set the products
+        setAllProducts();
+
+        // set the categories drop down
+        setCategoriesDropdown();
+
     }
 
     public void sellProduct(ActionEvent actionEvent) {
     }
 
-    public void logout(ActionEvent actionEvent) {
+    public void logout(ActionEvent actionEvent) throws IOException {
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
+
+        // Load the scene
+        Scene scene = new Scene(loader.load());
+
+        // shift to login page
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setWidth(800);  // Set the fixed width
+        stage.setHeight(600);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void categoryFilterClick(ActionEvent actionEvent) throws SQLException {
+
+        String category = categoriesDropdown.getValue();
+
+        // filter the products according to the category
+        loadAllProducts();
+        products.removeIf(product-> !product.getCategory().equals(category));
+        setProdutcts();
+
+        // set the subcategories based on the category selected
+        setSubcategoriesDropDown(category);
+
+        // clear the search box
+        searchField.setText("");
+
+    }
+
+    public void subcategoryFilterClick(ActionEvent actionEvent) throws SQLException {
+
+        // filter products based on the subcategory selected
+        String subcategory = subcategoriesDropDown.getValue();
+
+        // filter the products according to the category
+        loadAllProducts();
+        products.removeIf(product-> !product.getSubcategory().equals(subcategory));
+        setProdutcts();
     }
 }

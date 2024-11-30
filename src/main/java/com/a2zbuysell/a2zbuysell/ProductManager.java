@@ -7,10 +7,12 @@ import java.util.List;
 public class ProductManager {
 
     ArrayList<Product> products = new ArrayList<>();
+    DBManager dbm = new DBManager();
 
     public void loadProducts() throws SQLException {
 
-        DBManager dbm = new DBManager();
+        products.clear();
+
         List<List<Object>> res = dbm.executeQuery(
                 """
                         select
@@ -38,9 +40,7 @@ public class ProductManager {
                         on p.user_id = u.id
                         """
         );
-        products.clear();
         for (List<Object> r : res){
-            System.out.println(r);
             products.add(
                     new Product(
                             (Integer) r.get(0),
