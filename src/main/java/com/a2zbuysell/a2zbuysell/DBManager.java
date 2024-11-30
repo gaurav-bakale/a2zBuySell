@@ -12,11 +12,14 @@ class DBManager {
     Connection conn;
 
     DBManager(){
-        String url = "jdbc:sqlite:/Users/gauravbakale/Documents/NEU/CSYE 6200/project/a2zBuySell/src/main/java/com/a2zbuysell/a2zbuysell/mydatabase.db"; // replace with your database file
+        String url = "jdbc:sqlite:/"+System.getProperty("user.dir")+"/src/main/resources/com/a2zbuysell/a2zbuysell/mydatabase.db";
+        System.out.println(url);
 
         try (Connection connection = DriverManager.getConnection(url)) {
             this.conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
+            System.out.println("The database path could be wrong. Please check again....");
+            System.out.println(url);
             System.err.println("Error connecting to database: " + e.getMessage());
         }
     }

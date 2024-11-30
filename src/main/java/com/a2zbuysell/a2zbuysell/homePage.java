@@ -179,7 +179,7 @@ public class homePage {
             Text productTitleText = new Text(product.getTitle());
             productTitleText.setWrappingWidth(200.0);
 
-            Text productPriceText = new Text(STR."$\{product.getPrice()}");
+            Text productPriceText = new Text("$" +product.getPrice());
             productPriceText.setWrappingWidth(100.0);
 
             Button productBuyButton = new Button("Buy now");
