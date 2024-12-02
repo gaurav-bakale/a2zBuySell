@@ -82,7 +82,7 @@ public class loginPage {
         if(true){
             System.out.println("Success");
             loginMessageText.setText("Success!");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/a2zbuysell/a2zbuysell/home-page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
 
             try {
                 Scene homeScene = new Scene(loader.load());
@@ -107,7 +107,7 @@ public class loginPage {
     }
 
     public void createAccountButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/a2zbuysell/a2zbuysell/create-account-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("create-account-page.fxml"));
 
         Scene createAccountScene = new Scene(loader.load());
         Stage stage = (Stage) loginButton.getScene().getWindow();

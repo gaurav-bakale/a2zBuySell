@@ -13,7 +13,6 @@ class DBManager {
     Connection conn;
 
     DBManager(){
-//        String url = "jdbc:sqlite:/"+System.getProperty("user.dir")+"/src/main/resources/com/a2zbuysell/a2zbuysell/mydatabase.db";
         String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "com" + File.separator + "a2zbuysell" + File.separator + "a2zbuysell" + File.separator + "mydatabase.db";
         String url = "jdbc:sqlite:" + dbPath;
         System.out.println(url);
