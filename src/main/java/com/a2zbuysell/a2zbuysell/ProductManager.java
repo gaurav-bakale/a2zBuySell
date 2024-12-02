@@ -38,6 +38,7 @@ public class ProductManager {
                         on p.id = pi.product_id
                         inner JOIN users u
                         on p.user_id = u.id
+                        order by p.date_created desc
                         """
         );
         for (List<Object> r : res){
