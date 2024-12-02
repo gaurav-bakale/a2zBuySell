@@ -329,7 +329,17 @@ public class homePage {
 
     }
 
-    public void sellProduct(ActionEvent actionEvent) {
+    public void sellProduct(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("upload-page.fxml"));
+        Scene uploadPageScene = new Scene(loader.load());
+
+        // Get the current stage (window)
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+        // Set the new scene
+        stage.setScene(uploadPageScene);
+        stage.setTitle("Sell Product - A2Z Buy Sell");
+        stage.show();
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
