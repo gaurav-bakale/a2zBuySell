@@ -112,6 +112,21 @@ public class homePage {
     ArrayList<Product> products;
     HashMap<String, ArrayList<String>> categoriesMapping = new HashMap<>();
 
+    // Cart to hold selected products
+    private final List<Product> cart = new ArrayList<>();
+
+    @FXML
+    private Button viewCartButton;
+
+    private Stage cartStage;
+
+    // Method to add a product to the cart
+    private void addToCart(Product product) {
+        cart.add(product);
+        System.out.println("Added to cart: " + product.getTitle());
+    }
+
+
 
     void loadAllProducts() throws SQLException {
         ProductManager pm = new ProductManager();
@@ -120,16 +135,12 @@ public class homePage {
 
     }
 
-    void setProdutcts(){
-
-        Product product;
+    void setProdutcts() {
         productsDetailsVbox.getChildren().clear();
-        for (int i = 0; i < products.size(); i++) {
-
-            product = products.get(i);
-
+        for (Product product : products) {
             HBox hbox = new HBox();
 
+            // Set up product image
             ImageView prodImage = new ImageView();
             byte[] imageBytes = product.getImage();
             if (imageBytes.length != 0) {
@@ -139,46 +150,27 @@ public class homePage {
                 prodImage.setFitWidth(100);
                 prodImage.setFitHeight(100);
                 prodImage.setPreserveRatio(true);
-                prodImage.setPickOnBounds(true);
             }
 
-            Product finalProduct = product;
-            prodImage.setOnMouseClicked(event -> {
-                try {
-                    productImageClick(event, finalProduct);
-                } catch (IOException | SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
+            // Set up product title and price
             Text productTitleText = new Text(product.getTitle());
             productTitleText.setWrappingWidth(200.0);
-
-            Text productPriceText = new Text("$" +product.getPrice());
+            Text productPriceText = new Text("$" + product.getPrice());
             productPriceText.setWrappingWidth(100.0);
 
-            Button productBuyButton = new Button("Buy now");
-//            productBuyButton.setOnAction(this::productBuyNow);
-            productBuyButton.setOnMouseClicked(event -> {
-                try {
-                    productImageClick(event, finalProduct);
-                } catch (IOException | SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            // Add to Cart button
+            Button addToCartButton = new Button("Add to Cart");
+            addToCartButton.setOnAction(event -> addToCart(product));
 
-            hbox.getChildren().addAll(prodImage, productTitleText, productPriceText, productBuyButton);
-            hbox.setLayoutX(10.0);
-            hbox.setLayoutY(10.0);
+            hbox.getChildren().addAll(prodImage, productTitleText, productPriceText, addToCartButton);
             hbox.setSpacing(10.0);
-            hbox.setPadding(new Insets(20,20,20,20));
+            hbox.setPadding(new Insets(20, 20, 20, 20));
             hbox.setAlignment(Pos.CENTER);
 
             productsDetailsVbox.getChildren().add(hbox);
-
         }
-        productsDetailsVbox.setFillWidth(true);
     }
+
 
     void setAllProducts() throws SQLException {
         loadAllProducts();
@@ -186,7 +178,6 @@ public class homePage {
     }
 
     void setCategoriesDropdown() throws SQLException {
-
         categoriesDropdown.getItems().clear();
 
         List<List<Object>> res = dbm.executeQuery("""
@@ -223,15 +214,16 @@ public class homePage {
         categoriesDropdown.getItems().addAll(categoriesMapping.keySet());
     }
 
+
+
     void setSubcategoriesDropDown(String category){
 
         // set the subcategories based on the category
         subcategoriesDropDown.getItems().clear();
-        subcategoriesDropDown.setPromptText("Select");
-        subcategoriesDropDown.setValue("");
-        subcategoriesDropDown.getItems().addAll(
-                categoriesMapping.get(category)
-        );
+//        subcategoriesDropDown.setItems(FXCollections.observableArrayList());
+//        subcategoriesDropDown.setPromptText("Select");
+//        subcategoriesDropDown.setValue(null);
+        subcategoriesDropDown.getItems().addAll(categoriesMapping.get(category));
 
 
     }
@@ -241,31 +233,38 @@ public class homePage {
 
         String category = categoriesDropdown.getValue();
 
-        // filter the products according to the category
-        setAllProducts();
-        products.removeIf(product-> !product.getCategory().equals(category));
+        // Reload all products before applying the filter
+        loadAllProducts(); // Ensure the products list is freshly loaded
+        if (category != null && !category.isEmpty()) {
+            products.removeIf(product -> !product.getCategory().equals(category));
+        }
         setProdutcts();
 
-        // set the subcategories based on the category selected
+        // Update subcategories based on the selected category
         setSubcategoriesDropDown(category);
-
-        // clear the search box
+        categoriesDropdown.setDisable(true);
+        // Clear the search box (optional)
         searchField.setText("");
     }
 
+
     @FXML
     public void subcategoryFilterClick(ActionEvent actionEvent) throws SQLException {
-
-        // filter products based on the subcategory selected
         String subcategory = subcategoriesDropDown.getValue();
 
-        // filter the products according to the category
-        products.removeIf(product-> !product.getSubcategory().equals(subcategory));
+        // Reload all products before applying the filter
+        loadAllProducts(); // Ensure the products list is freshly loaded
+        if (subcategory != null && !subcategory.isEmpty()) {
+            products.removeIf(product -> !product.getSubcategory().equals(subcategory));
+        }
         setProdutcts();
     }
 
+
     @FXML
     void clearFilters(ActionEvent event) throws SQLException {
+        categoriesDropdown.setDisable(false);
+        categoriesDropdown.setValue(null);
         setAllProducts();
         setCategoriesDropdown();
         subcategoriesDropDown.getItems().clear();
@@ -327,7 +326,52 @@ public class homePage {
         // set the categories drop down
         setCategoriesDropdown();
 
+        viewCartButton = new Button("View Cart");
+        viewCartButton.setOnAction(event -> viewCart());
+        //appTitleBar.getChildren().add(viewCartButton); // Assuming `appTitleBar` is a layout in the top-right
+        HBox.setMargin(viewCartButton, new Insets(0, 10, 0, 0)); // Adjust margin for proper placement
+
     }
+
+    @FXML
+    private void viewCart() {
+        // Close the existing cartStage if it is already open
+        if (cartStage != null && cartStage.isShowing()) {
+            cartStage.close();
+        }
+
+        VBox cartView = new VBox();
+        cartView.setPadding(new Insets(20));
+        cartView.setSpacing(10);
+
+        for (Product product : cart) {
+            HBox hbox = new HBox();
+
+            // Display product name and price
+            Text productTitle = new Text(product.getTitle());
+            productTitle.setWrappingWidth(200.0);
+            Text productPrice = new Text("$" + product.getPrice());
+
+            // Remove button
+            Button removeButton = new Button("Remove");
+            removeButton.setOnAction(e -> {
+                cart.remove(product); // Remove from cart
+                viewCart(); // Refresh cart popup
+            });
+
+            hbox.getChildren().addAll(productTitle, productPrice, removeButton);
+            hbox.setSpacing(10.0);
+            cartView.getChildren().add(hbox);
+        }
+
+        // Create and show the cart popup
+        cartStage = new Stage();
+        cartStage.setTitle("Cart");
+        Scene scene = new Scene(cartView, 400, 300);
+        cartStage.setScene(scene);
+        cartStage.show();
+    }
+
 
     public void sellProduct(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("upload-page.fxml"));
