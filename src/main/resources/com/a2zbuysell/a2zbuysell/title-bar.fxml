@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- Application Title Bar -->
+
+<HBox fx:id="appTitleBar" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+    <ImageView fitHeight="75.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+        <HBox.margin>
+            <Insets right="20.0" />
+        </HBox.margin>
+        <Image url="@icon.jpg" />
+    </ImageView>
+    <Label style="-fx-font-family: 'Arial'; -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1E90FF; -fx-effect: dropshadow(gaussian, rgba(50,50,50,0.5), 5, 0, 2, 2);" text="A2ZBuySell">
+        <font>
+            <Font size="35.0" />
+        </font>
+    </Label>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</HBox>

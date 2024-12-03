@@ -3,6 +3,7 @@ package com.a2zbuysell.a2zbuysell;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,23 +24,12 @@ import java.util.List;
 public class createAccountPage {
 
     public Button goBackButton;
-    @FXML
-    private VBox FullPageVbox;
-
-    @FXML
-    private Button aboutButton;
-
-    @FXML
-    private HBox appTitleBar;
-
-    @FXML
-    private Label appTitleLabel;
-
-    @FXML
-    private Button contactButton;
-
-    @FXML
-    private Button createAccountButton;
+    public VBox FullPageVbox;
+    public Button createAccountButton;
+    public HBox appTitleBar;
+    public Label appTitleLabel;
+    public Label formTitle;
+    public HBox homePageTitleBarHbox;
 
     @FXML
     private Text createAccountMessageText;
@@ -132,7 +122,6 @@ public class createAccountPage {
             email.clear();
             return;
         }
-        
         String query = "INSERT INTO users (username, email, password, first_name, last_name, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         int i= dbm.executeUpdate(query,usernametext,pwdtext,emailText,firstNameText,lastNameText,phoneNumberText);
         if (i > 0) {
@@ -150,28 +139,24 @@ public class createAccountPage {
 
     }
 
-    public void aboutButtonClick(ActionEvent actionEvent) {
-    }
 
-    public void contactButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void termsButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void privacyButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void goBackButtonClick(ActionEvent actionEvent) throws IOException {
+    public void goBackButtonClick(ActionEvent event) throws IOException {
 
         //coding
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
 
-        Scene loginScene = new Scene(loader.load());
-        Stage stage = (Stage) goBackButton.getScene().getWindow();
-        stage.setWidth(1200);
-        stage.setHeight(900);
-        stage.setScene(loginScene);
+        Scene scene = new Scene(loader.load());
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
+        stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 }

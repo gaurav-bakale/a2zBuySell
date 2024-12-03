@@ -15,7 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.ByteArrayInputStream;
@@ -35,6 +40,8 @@ import javafx.stage.Stage;
 
 public class homePage {
 
+    public HBox homePageTitleBarHbox;
+    public HBox seachBarHbox;
     DBManager dbm = new DBManager();
 
     @FXML
@@ -136,7 +143,10 @@ public class homePage {
     }
 
     void setProdutcts() {
-        productsDetailsVbox.getChildren().clear();
+        if (productsDetailsVbox.getChildren() != null){
+            productsDetailsVbox.getChildren().clear();
+        }
+        
         for (Product product : products) {
             HBox hbox = new HBox();
 
@@ -147,20 +157,42 @@ public class homePage {
                 ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
                 Image image = new Image(bis);
                 prodImage.setImage(image);
-                prodImage.setFitWidth(100);
-                prodImage.setFitHeight(100);
+                prodImage.setFitWidth(200);
+                prodImage.setFitHeight(200);
                 prodImage.setPreserveRatio(true);
             }
 
             // Set up product title and price
             Text productTitleText = new Text(product.getTitle());
             productTitleText.setWrappingWidth(200.0);
+            productTitleText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            productTitleText.setFill(Color.DARKSLATEGRAY); // Set title color
+
             Text productPriceText = new Text("$" + product.getPrice());
             productPriceText.setWrappingWidth(100.0);
+            productPriceText.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+            productPriceText.setFill(Color.FORESTGREEN); // Set price color
 
+            prodImage.setOnMouseClicked(event -> {
+                try {
+                    productImageClick(product);
+                } catch (IOException | SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             // Add to Cart button
             Button addToCartButton = new Button("Add to Cart");
+            addToCartButton.setStyle(
+                    "-fx-background-color: #32CD32; " + // Green background
+                            "-fx-text-fill: white; " +           // White text
+                            "-fx-font-size: 16px; " +            // Font size
+                            "-fx-font-weight: bold; " +          // Bold font
+                            "-fx-background-radius: 12px; " +    // Rounded corners
+                            "-fx-padding: 10px 20px; " +         // Padding inside the button
+                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" // Drop shadow effect
+            );
             addToCartButton.setOnAction(event -> addToCart(product));
+
 
             hbox.getChildren().addAll(prodImage, productTitleText, productPriceText, addToCartButton);
             hbox.setSpacing(10.0);
@@ -295,25 +327,25 @@ public class homePage {
     }
 
     @FXML
-    void productImageClick(MouseEvent event, Product finalProduct) throws IOException, SQLException {
-        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("product-page.fxml"));
+    void productImageClick( Product finalProduct) throws IOException, SQLException {
 
-        // Load the scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("product-page.fxml"));
         Scene scene = new Scene(loader.load());
 
-//         Get the controller from the FXMLLoader
         productPage productPageController = loader.getController();
-//
-        // Pass the productId to the controller's initialize method
+
         productPageController.initialize(finalProduct);
 
-        // Create a new Stage to show the product page
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setWidth(1200);  // Set the fixed width
-        stage.setHeight(900);
+        Stage stage = (Stage) productsDetailsVbox.getScene().getWindow();
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
         stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
+
     }
 
 
@@ -326,10 +358,26 @@ public class homePage {
         // set the categories drop down
         setCategoriesDropdown();
 
-        viewCartButton = new Button("View Cart");
+        // viewCartButton = new Button("View Cart");
+        viewCartButton.setStyle(
+                "-fx-background-color: #1E90FF; " + // Blue background for View Cart
+                        "-fx-text-fill: white; " +           // White text
+                        "-fx-font-size: 16px; " +            // Font size
+                        "-fx-font-weight: bold; " +          // Bold font
+                        "-fx-background-radius: 12px; " +    // Rounded corners
+                        "-fx-padding: 10px 20px; " +         // Padding inside the button
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" // Drop shadow effect
+        );
         viewCartButton.setOnAction(event -> viewCart());
-        //appTitleBar.getChildren().add(viewCartButton); // Assuming `appTitleBar` is a layout in the top-right
-        HBox.setMargin(viewCartButton, new Insets(0, 10, 0, 0)); // Adjust margin for proper placement
+        // HBox.setMargin(viewCartButton, new Insets(0, 50, 0, 0));
+        // Spacer
+        // Region rightSpacer = new Region();
+        // Region leftSpacer = new Region();
+        // HBox.setMargin(leftSpacer, new Insets(0, 0, 0, 50));
+        // HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        // HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+        // homePageTitleBarHbox.getChildren().addFirst(leftSpacer);
+        // homePageTitleBarHbox.getChildren().addAll(rightSpacer, viewCartButton);
 
     }
 
@@ -373,31 +421,39 @@ public class homePage {
     }
 
 
-    public void sellProduct(ActionEvent actionEvent) throws IOException {
+    public void sellProduct(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("upload-page.fxml"));
-        Scene uploadPageScene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load());
 
-        // Get the current stage (window)
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Set the new scene
-        stage.setScene(uploadPageScene);
-        stage.setTitle("Sell Product - A2Z Buy Sell");
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
+        stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 
-    public void logout(ActionEvent actionEvent) throws IOException {
-        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
+    public void logout(ActionEvent event) throws IOException {
 
-        // Load the scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
         Scene scene = new Scene(loader.load());
 
-        // shift to login page
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setWidth(1200);  // Set the fixed width
-        stage.setHeight(900);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
         stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 

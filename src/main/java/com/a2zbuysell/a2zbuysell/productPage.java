@@ -1,16 +1,14 @@
 package com.a2zbuysell.a2zbuysell;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,7 +21,7 @@ public class productPage {
 
     @FXML
     public ImageView productImage;
-    public ImageView goBackButton;
+    public Button goBackButton;
 
     @FXML
     private Button aboutButton;
@@ -85,10 +83,10 @@ public class productPage {
             Image image = new Image(bis);
             productImage.setImage(image);
         }
-//        productImage.setFitWidth(100);
-//        productImage.setFitHeight(100);
-//        productImage.setPreserveRatio(true);
-//        productImage.setPickOnBounds(true);
+        productImage.setFitWidth(500);
+        productImage.setFitHeight(500);
+        productImage.setPreserveRatio(true);
+        productImage.setPickOnBounds(true);
 
         titleText.setText(product.getTitle());
         priceText.setText("$" + product.getPrice());
@@ -100,24 +98,22 @@ public class productPage {
 
     }
 
-    public void goBackClick(MouseEvent mouseEvent) throws IOException, SQLException {
+    public void goBackClick(ActionEvent event) throws IOException, SQLException {
         // Load the FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
 
-        // Load the scene
         Scene scene = new Scene(loader.load());
 
-//         Get the controller from the FXMLLoader
-        homePage homePageController = loader.getController();
-//
-        // Pass the productId to the controller's initialize method
-        homePageController.initialize();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Create a new Stage to show the product page
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setWidth(1200);  // Set the fixed width
-        stage.setHeight(900);
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
         stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 }

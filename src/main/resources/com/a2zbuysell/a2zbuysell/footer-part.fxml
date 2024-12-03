@@ -1,0 +1,16 @@
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<HBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.a2zbuysell.a2zbuysell.footerPart" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;">
+    <!-- About Button -->
+    <Button fx:id="aboutButton" text="About" onAction="#handleAboutButton" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10px 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 2, 2);" />
+
+    <!-- Contact Button -->
+    <Button fx:id="contactButton" text="Contact" onAction="#handleContactButton" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10px 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 2, 2);" />
+
+    <!-- Terms & Conditions Button -->
+    <Button fx:id="termsButton" text="Terms &amp; Conditions" onAction="#handleTermsButton" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10px 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 2, 2);" />
+
+    <!-- Privacy Policy Button -->
+    <Button fx:id="privacyButton" text="Privacy Policy" onAction="#handlePrivacyButton" style="-fx-background-color: #808080; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10px 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 2, 2);" />
+</HBox>

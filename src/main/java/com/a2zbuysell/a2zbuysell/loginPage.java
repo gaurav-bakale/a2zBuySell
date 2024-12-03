@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,17 +81,27 @@ public class loginPage {
 
 //        if (loginCheck){
         if(true){
-            System.out.println("Success");
+            System.out.println("User logged in");
             loginMessageText.setText("Success!");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
 
             try {
-                Scene homeScene = new Scene(loader.load());
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setWidth(1200);  // Set the fixed width
-                stage.setHeight(900);
-                stage.setScene(homeScene);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
+
+                Scene scene = new Scene(loader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                double currentWidth = stage.getWidth();
+                double currentHeight = stage.getHeight();
+
+                stage.setScene(scene);
+
+                stage.setWidth(currentWidth);
+                stage.setHeight(currentHeight);
+
                 stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,14 +117,21 @@ public class loginPage {
     void initialize() {
     }
 
-    public void createAccountButtonClick(ActionEvent actionEvent) throws IOException {
+    public void createAccountButtonClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("create-account-page.fxml"));
 
-        Scene createAccountScene = new Scene(loader.load());
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.setWidth(1200);
-        stage.setHeight(900);
-        stage.setScene(createAccountScene);
+        Scene scene = new Scene(loader.load());
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
+        stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 }
