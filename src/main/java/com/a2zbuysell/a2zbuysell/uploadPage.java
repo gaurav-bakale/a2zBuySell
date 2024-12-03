@@ -118,10 +118,19 @@ public class uploadPage {
     @FXML
     private void goBackToPreviousPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
-        Scene homePageScene = new Scene(loader.load());
+
+        Scene scene = new Scene(loader.load());
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(homePageScene);
-        stage.setTitle("Home - A2Z Buy Sell");
+
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+
+        stage.setScene(scene);
+
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
+
         stage.show();
     }
 }
