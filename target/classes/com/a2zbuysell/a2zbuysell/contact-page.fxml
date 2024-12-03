@@ -22,7 +22,6 @@
     </top>
     <bottom>
 
-
         <!-- Footer Section -->
         <HBox fx:id="footer" alignment="BOTTOM_CENTER" prefWidth="664.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
             <Button fx:id="aboutButton" onAction="#aboutButtonClick" text="About" />

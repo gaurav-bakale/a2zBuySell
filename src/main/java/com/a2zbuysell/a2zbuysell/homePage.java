@@ -178,7 +178,6 @@ public class homePage {
     }
 
     void setCategoriesDropdown() throws SQLException {
-
         categoriesDropdown.getItems().clear();
 
         List<List<Object>> res = dbm.executeQuery("""
@@ -215,21 +214,23 @@ public class homePage {
         categoriesDropdown.getItems().addAll(categoriesMapping.keySet());
     }
 
+
+
     void setSubcategoriesDropDown(String category){
 
         // set the subcategories based on the category
         subcategoriesDropDown.getItems().clear();
-        subcategoriesDropDown.setPromptText("Select");
-        subcategoriesDropDown.setValue("");
-        subcategoriesDropDown.getItems().addAll(
-                categoriesMapping.get(category)
-        );
+//        subcategoriesDropDown.setItems(FXCollections.observableArrayList());
+//        subcategoriesDropDown.setPromptText("Select");
+//        subcategoriesDropDown.setValue(null);
+        subcategoriesDropDown.getItems().addAll(categoriesMapping.get(category));
 
 
     }
 
     @FXML
     public void categoryFilterClick(ActionEvent actionEvent) throws SQLException {
+
         String category = categoriesDropdown.getValue();
 
         // Reload all products before applying the filter
@@ -241,7 +242,7 @@ public class homePage {
 
         // Update subcategories based on the selected category
         setSubcategoriesDropDown(category);
-
+        categoriesDropdown.setDisable(true);
         // Clear the search box (optional)
         searchField.setText("");
     }
@@ -262,6 +263,8 @@ public class homePage {
 
     @FXML
     void clearFilters(ActionEvent event) throws SQLException {
+        categoriesDropdown.setDisable(false);
+        categoriesDropdown.setValue(null);
         setAllProducts();
         setCategoriesDropdown();
         subcategoriesDropDown.getItems().clear();
