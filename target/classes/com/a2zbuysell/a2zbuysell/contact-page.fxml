@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a2zbuysell.a2zbuysell.homePage">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <HBox fx:id="appTitleBar" alignment="CENTER" prefHeight="65.0" prefWidth="600.0">
+                <Label fx:id="appTitleLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="A2ZBuySell" textAlignment="CENTER">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Label>
+            </HBox>
+        </VBox>
+    </top>
+    <bottom>
+
+
+        <!-- Footer Section -->
+        <HBox fx:id="footer" alignment="BOTTOM_CENTER" prefWidth="664.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
+            <Button fx:id="aboutButton" onAction="#aboutButtonClick" text="About" />
+            <Button fx:id="contactButton" onAction="#contactButtonClick" text="Contact" />
+            <Button fx:id="termsButton" onAction="#termsButtonClick" text="Terms &amp; Conditions" />
+            <Button fx:id="privacyButton" onAction="#privacyButtonClick" text="Privacy Policy" />
+            <Button fx:id="logout" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textFill="#7c0606">
+                <font>
+                    <Font name="Adelle Sans Devanagari Extrabold" size="10.0" />
+                </font>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <HBox.margin>
+                    <Insets left="70.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+
+            <!-- Contact Info -->
+            <Label style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Get in Touch!">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="We are here to assist you with any questions or issues you might have. Feel free to reach out using the information below:" wrapText="true">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+            <!-- Office Address -->
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Office Address:">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="360 Huntington Ave, Boston, MA 02115" wrapText="true">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+            <!-- Phone Number -->
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Phone Number:">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Customer Support: +1-800-555-1234">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Sales Inquiries: +1-800-555-5678">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+            <!-- Email Addresses -->
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Email Addresses:">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Support: support@a2zbuysell.com">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Sales: sales@a2zbuysell.com">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+            <!-- Social Media -->
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Follow Us on Social Media:">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Facebook: @A2ZBuySell">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Twitter: @A2Z_BuySell">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Instagram: @A2Z.BuySell">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+            <!-- Additional Note -->
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Business Hours:">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Monday to Friday: 9:00 AM - 6:00 PM" wrapText="true">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Saturday: 10:00 AM - 4:00 PM" wrapText="true">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+            <Label style="-fx-font-size: 16; -fx-text-fill: #34495e;" text="Sunday: Closed">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding></Label>
+
+
+        </VBox>
+    </center>
+</BorderPane>

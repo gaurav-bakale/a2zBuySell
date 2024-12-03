@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.a2zbuysell.a2zbuysell.homePage">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <HBox fx:id="appTitleBar" alignment="CENTER" prefHeight="65.0" prefWidth="600.0">
+                <Label fx:id="appTitleLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="A2ZBuySell" textAlignment="CENTER">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Label>
+            </HBox>
+        </VBox>
+    </top>
+    <bottom>
+
+        <!-- Footer Section -->
+        <HBox fx:id="footer" alignment="BOTTOM_CENTER" prefWidth="664.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
+            <Button fx:id="aboutButton" onAction="#aboutButtonClick" text="About" />
+            <Button fx:id="contactButton" onAction="#contactButtonClick" text="Contact" />
+            <Button fx:id="termsButton" onAction="#termsButtonClick" text="Terms &amp; Conditions" />
+            <Button fx:id="privacyButton" onAction="#privacyButtonClick" text="Privacy Policy" />
+            <Button fx:id="logout" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#logout" text="Logout" textFill="#7c0606">
+                <font>
+                    <Font name="Adelle Sans Devanagari Extrabold" size="10.0" />
+                </font>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <HBox.margin>
+                    <Insets left="70.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+
+            <!-- Introduction -->
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="Welcome to A2Z BuySell. Please read the following terms and conditions carefully before using our platform." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <!-- Section 1 -->
+            <Text style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="1. Acceptance of Terms:" textAlignment="JUSTIFY">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="By accessing and using our platform, you agree to comply with and be bound by these terms. If you disagree with any part of the terms, you must not use our services." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+            <!-- Section 2 -->
+            <Text style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="2. User Responsibilities:" textAlignment="JUSTIFY">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="You agree to use the platform in compliance with all applicable laws. Users must provide accurate information during registration and are responsible for maintaining the confidentiality of their account credentials." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+            <!-- Section 3 -->
+            <Text style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="3. Prohibited Activities:" textAlignment="JUSTIFY">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="Users are strictly prohibited from engaging in activities such as fraud, misuse of the platform, or posting illegal content. Any violation may result in immediate account suspension or termination." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+            <!-- Section 4 -->
+            <Text style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="4. Liability Limitation:" textAlignment="JUSTIFY">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="A2Z BuySell is not responsible for any direct or indirect damages arising from the use of the platform, including but not limited to loss of data or financial losses." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+            <!-- Section 6 -->
+            <Text style="-fx-font-size: 18; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="5. Changes to Terms:" textAlignment="JUSTIFY">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="We reserve the right to update these terms at any time. Users will be notified of significant changes through our platform or via email." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+            <!-- Closing Note -->
+            <Text style="-fx-font-size: 16; -fx-fill: #34495e;" text="By continuing to use our services, you acknowledge that you have read, understood, and agreed to the terms and conditions outlined above." textAlignment="JUSTIFY" wrappingWidth="760">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin></Text>
+
+
+        </VBox>
+    </center>
+</BorderPane>
