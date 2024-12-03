@@ -122,7 +122,6 @@ public class createAccountPage {
             email.clear();
             return;
         }
-
         String query = "INSERT INTO users (username, email, password, first_name, last_name, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         int i= dbm.executeUpdate(query,usernametext,pwdtext,emailText,firstNameText,lastNameText,phoneNumberText);
         if (i > 0) {
