@@ -102,7 +102,6 @@ public class productPage {
         // Load the FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
 
-
         Scene scene = new Scene(loader.load());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

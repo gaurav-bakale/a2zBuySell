@@ -18,6 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.ByteArrayInputStream;
@@ -38,6 +41,7 @@ import javafx.stage.Stage;
 public class homePage {
 
     public HBox homePageTitleBarHbox;
+    public HBox seachBarHbox;
     DBManager dbm = new DBManager();
 
     @FXML
@@ -153,16 +157,21 @@ public class homePage {
                 ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
                 Image image = new Image(bis);
                 prodImage.setImage(image);
-                prodImage.setFitWidth(100);
-                prodImage.setFitHeight(100);
+                prodImage.setFitWidth(200);
+                prodImage.setFitHeight(200);
                 prodImage.setPreserveRatio(true);
             }
 
             // Set up product title and price
             Text productTitleText = new Text(product.getTitle());
             productTitleText.setWrappingWidth(200.0);
+            productTitleText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            productTitleText.setFill(Color.DARKSLATEGRAY); // Set title color
+
             Text productPriceText = new Text("$" + product.getPrice());
             productPriceText.setWrappingWidth(100.0);
+            productPriceText.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+            productPriceText.setFill(Color.FORESTGREEN); // Set price color
 
             prodImage.setOnMouseClicked(event -> {
                 try {
@@ -349,7 +358,7 @@ public class homePage {
         // set the categories drop down
         setCategoriesDropdown();
 
-        viewCartButton = new Button("View Cart");
+        // viewCartButton = new Button("View Cart");
         viewCartButton.setStyle(
                 "-fx-background-color: #1E90FF; " + // Blue background for View Cart
                         "-fx-text-fill: white; " +           // White text
@@ -360,15 +369,15 @@ public class homePage {
                         "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" // Drop shadow effect
         );
         viewCartButton.setOnAction(event -> viewCart());
-        HBox.setMargin(viewCartButton, new Insets(0, 50, 0, 0));
+        // HBox.setMargin(viewCartButton, new Insets(0, 50, 0, 0));
         // Spacer
-        Region rightSpacer = new Region();
-        Region leftSpacer = new Region();
-        HBox.setMargin(leftSpacer, new Insets(0, 0, 0, 50));
-        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
-        homePageTitleBarHbox.getChildren().addFirst(leftSpacer);
-        homePageTitleBarHbox.getChildren().addAll(rightSpacer, viewCartButton);
+        // Region rightSpacer = new Region();
+        // Region leftSpacer = new Region();
+        // HBox.setMargin(leftSpacer, new Insets(0, 0, 0, 50));
+        // HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        // HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+        // homePageTitleBarHbox.getChildren().addFirst(leftSpacer);
+        // homePageTitleBarHbox.getChildren().addAll(rightSpacer, viewCartButton);
 
     }
 
