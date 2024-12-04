@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -255,7 +252,14 @@ public class homePage {
 //        subcategoriesDropDown.setItems(FXCollections.observableArrayList());
 //        subcategoriesDropDown.setPromptText("Select");
 //        subcategoriesDropDown.setValue(null);
-        subcategoriesDropDown.getItems().addAll(categoriesMapping.get(category));
+        if (categoriesMapping.containsKey(category)) {
+            for (String subcategory : categoriesMapping.get(category)) {
+                if (!subcategoriesDropDown.getItems().contains(subcategory)) {
+                    subcategoriesDropDown.getItems().add(subcategory);
+                }
+            }
+        }
+        //subcategoriesDropDown.getItems().addAll(categoriesMapping.get(category));
 
 
     }
@@ -392,6 +396,15 @@ public class homePage {
         cartView.setPadding(new Insets(20));
         cartView.setSpacing(10);
 
+        Label totalAmountLabel = new Label(); // Label to show total amount
+        totalAmountLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+
+        // Method to calculate and update total amount
+        Runnable updateTotalAmount = () -> {
+            double totalAmount = cart.stream().mapToDouble(Product::getPrice).sum();
+            totalAmountLabel.setText("Total Amount: $" + totalAmount);
+        };
+
         for (Product product : cart) {
             HBox hbox = new HBox();
 
@@ -411,6 +424,53 @@ public class homePage {
             hbox.setSpacing(10.0);
             cartView.getChildren().add(hbox);
         }
+
+        // Update total amount initially
+        updateTotalAmount.run();
+
+// Buy Now button
+        Button buyNowButton = new Button("Buy Now");
+        buyNowButton.setStyle(
+                "-fx-background-color: #FFA500; " + // Orange background
+                        "-fx-text-fill: white; " +        // White text
+                        "-fx-font-size: 16px; " +         // Font size
+                        "-fx-font-weight: bold; " +       // Bold font
+                        "-fx-background-radius: 12px; " + // Rounded corners
+                        "-fx-padding: 10px 20px; " +      // Padding inside the button
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);" // Drop shadow effect
+        );
+
+// Action when "Buy Now" is clicked
+        buyNowButton.setOnAction(e -> {
+            if (cart.isEmpty()) {
+                // Show alert if the cart is empty
+                Alert emptyCartAlert = new Alert(Alert.AlertType.WARNING);
+                emptyCartAlert.setTitle("Cart is Empty");
+                emptyCartAlert.setHeaderText(null);
+                emptyCartAlert.setContentText("Your cart is empty. Please add items to your cart before proceeding.");
+                emptyCartAlert.showAndWait();
+            } else {
+                // Calculate the total amount
+                double totalAmount = cart.stream().mapToDouble(Product::getPrice).sum();
+
+                // Set a default email for contact
+                String email = "johndoe@example.com";
+
+                // Show purchase summary in an alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Purchase Summary");
+                alert.setHeaderText("Your Purchase Details");
+                alert.setContentText(
+                        "Total Amount: $" + totalAmount +
+                                "\nContact Information:" +
+                                "\nEmail: " + email
+                );
+                alert.showAndWait();
+            }
+        });
+
+        cartView.getChildren().addAll(totalAmountLabel, buyNowButton);
+
 
         // Create and show the cart popup
         cartStage = new Stage();

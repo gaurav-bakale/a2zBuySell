@@ -96,7 +96,13 @@ public class uploadPage {
             byte[] imageBytes = Files.readAllBytes(selectedImageFile.toPath());
             dbm.executeUpdate(imageQuery, productId, imageBytes);
 
-            System.out.println("Product and image added successfully!");
+            // Show success alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Upload Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your product has been uploaded successfully!");
+            alert.showAndWait();
+
             resetForm();
         } catch (NumberFormatException e) {
             System.out.println("Invalid price format.");
@@ -118,19 +124,10 @@ public class uploadPage {
     @FXML
     private void goBackToPreviousPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
-
-        Scene scene = new Scene(loader.load());
-
+        Scene homePageScene = new Scene(loader.load());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        double currentWidth = stage.getWidth();
-        double currentHeight = stage.getHeight();
-
-        stage.setScene(scene);
-
-        stage.setWidth(currentWidth);
-        stage.setHeight(currentHeight);
-
+        stage.setScene(homePageScene);
+        stage.setTitle("Home - A2Z Buy Sell");
         stage.show();
     }
 }
