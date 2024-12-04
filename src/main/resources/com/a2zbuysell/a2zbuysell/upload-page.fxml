@@ -18,44 +18,93 @@
             <!-- Product Name -->
             <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
                 <Label text="Product Name:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                <TextField fx:id="nameField" promptText="Enter product name" style="-fx-pref-width: 300;" />
+                <TextField fx:id="nameField" promptText="Enter product name" style="-fx-pref-width: 300; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 5;">
+                    <style>
+                        -fx-focus-color: #2196F3;
+                        -fx-faint-focus-color: #2196F322;
+                    </style>
+                </TextField>
             </HBox>
 
             <!-- Price -->
             <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
                 <Label text="Price:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                <TextField fx:id="priceField" promptText="Enter product price" style="-fx-pref-width: 300;" />
+                <TextField fx:id="priceField" promptText="Enter product price" style="-fx-pref-width: 300; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 5;">
+                    <style>
+                        -fx-focus-color: #2196F3;
+                        -fx-faint-focus-color: #2196F322;
+                    </style>
+                </TextField>
             </HBox>
 
             <!-- Description -->
             <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
                 <Label text="Description:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                <TextArea fx:id="descriptionField" promptText="Enter product description" wrapText="true" style="-fx-pref-width: 400; -fx-pref-height: 100;" />
+                <TextArea fx:id="descriptionField" promptText="Enter product description" wrapText="true" style="-fx-pref-width: 400; -fx-pref-height: 100; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 5;">
+                    <style>
+                        -fx-focus-color: #2196F3;
+                        -fx-faint-focus-color: #2196F322;
+                    </style>
+                </TextArea>
             </VBox>
 
             <!-- Category -->
             <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
                 <Label text="Category:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                <TextField fx:id="categoryField" promptText="Enter category (case-insensitive)" style="-fx-pref-width: 300;" />
+                <TextField fx:id="categoryField" promptText="Enter category (case-insensitive)" style="-fx-pref-width: 300; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 5;">
+                    <style>
+                        -fx-focus-color: #2196F3;
+                        -fx-faint-focus-color: #2196F322;
+                    </style>
+                </TextField>
             </HBox>
 
             <!-- Subcategory -->
             <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
                 <Label text="Subcategory:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                <TextField fx:id="subcategoryField" promptText="Enter subcategory (case-insensitive)" style="-fx-pref-width: 300;" />
+                <TextField fx:id="subcategoryField" promptText="Enter subcategory (case-insensitive)" style="-fx-pref-width: 300; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 5;">
+                    <style>
+                        -fx-focus-color: #2196F3;
+                        -fx-faint-focus-color: #2196F322;
+                    </style>
+                </TextField>
             </HBox>
 
             <!-- Upload Picture -->
             <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-pref-width: 400;">
-                <Button fx:id="uploadPictureButton" text="Upload Picture" onAction="#uploadPicture" style="-fx-pref-width: 150;" />
+                <Button fx:id="uploadPictureButton" text="Upload Picture" onAction="#uploadPicture" style="-fx-pref-width: 150; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);">
+                    <style>
+                        :hover {
+                        -fx-background-color: derive(#4CAF50, -10%);
+                        }
+                    </style>
+                </Button>
                 <Label fx:id="imageLabel" text="No file selected" style="-fx-font-size: 12px; -fx-text-fill: #666666;" />
             </HBox>
 
             <!-- Buttons -->
             <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10;">
-                <Button text="Add Product" onAction="#addProduct" style="-fx-pref-width: 120;" />
-                <Button text="Reset" onAction="#resetForm" style="-fx-pref-width: 120;" />
-                <Button text="Back" onAction="#goBackToPreviousPage" style="-fx-pref-width: 120;" />
+                <Button text="Add Product" onAction="#addProduct" style="-fx-pref-width: 120; -fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);">
+                    <style>
+                        :hover {
+                        -fx-background-color: derive(#2196F3, -10%);
+                        }
+                    </style>
+                </Button>
+                <Button text="Reset" onAction="#resetForm" style="-fx-pref-width: 120; -fx-background-color: #FFC107; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);">
+                    <style>
+                        :hover {
+                        -fx-background-color: derive(#FFC107, -10%);
+                        }
+                    </style>
+                </Button>
+                <Button text="Back" onAction="#goBackToPreviousPage" style="-fx-pref-width: 120; -fx-background-color: #F44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);">
+                    <style>
+                        :hover {
+                        -fx-background-color: derive(#F44336, -10%);
+                        }
+                    </style>
+                </Button>
             </HBox>
         </VBox>
     </center>
@@ -67,3 +116,4 @@
         </HBox>
     </bottom>
 </BorderPane>
+
