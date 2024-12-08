@@ -13,13 +13,14 @@ import java.sql.SQLException;
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
+
+            // Start the application
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login-page.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
-        // Get the primary screen bounds
+
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        // Set the stage size to fit the screen
         stage.setWidth(screenBounds.getWidth());
         stage.setHeight(screenBounds.getHeight());
         stage.setX(screenBounds.getMinX());

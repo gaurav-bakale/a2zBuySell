@@ -79,8 +79,8 @@ public class loginPage {
             e.printStackTrace();
         }
 
-//        if (loginCheck){
-        if(true){
+        if (loginCheck){
+//        if(true){
             System.out.println("User logged in");
             loginMessageText.setText("Success!");
 

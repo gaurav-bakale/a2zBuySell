@@ -1,19 +1,7 @@
 package com.a2zbuysell.a2zbuysell;
 
 public class Product {
-//    p.id,
-//    p.title,
-//    p.description,
-//    price,
-//    condition,
-//    c.name as category,
-//    s.name as subcategory,
-//    pi.image,
-//    u.username ,
-//    u.email ,
-//    u.phone_number,
-//    p.date_created
-//
+
     Integer id;
     String title;
     String description;
