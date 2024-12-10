@@ -9,25 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-class DBManager {
-    Connection conn;
+abstract class AbstractDBManager {
+    protected Connection conn;
 
-    DBManager(){
-        String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "com" + File.separator + "a2zbuysell" + File.separator + "a2zbuysell" + File.separator + "mydatabase.db";
-        String url = "jdbc:sqlite:" + dbPath;
-        System.out.println(url);
-
-        try (Connection connection = DriverManager.getConnection(url)) {
-            this.conn = DriverManager.getConnection(url);
+    public AbstractDBManager(String dbUrl) {
+        try {
+            this.conn = DriverManager.getConnection(dbUrl);
         } catch (SQLException e) {
-            System.out.println("The database path could be wrong. Please check again....");
-            System.out.println(url);
             System.err.println("Error connecting to database: " + e.getMessage());
         }
     }
 
-    // Helper method to prepare a statement with parameters
-    private PreparedStatement prepareStatement(String query, Object... params) throws SQLException {
+    // Method to prepare a statement with parameters
+    protected PreparedStatement prepareStatement(String query, Object... params) throws SQLException {
         PreparedStatement stmt = this.conn.prepareStatement(query);
         for (int i = 0; i < params.length; i++) {
             stmt.setObject(i + 1, params[i]);
@@ -35,7 +29,7 @@ class DBManager {
         return stmt;
     }
 
-    // Method to fetch results from a SELECT query
+    // Method to execute a SELECT query and return results
     public List<List<Object>> executeQuery(String query, Object... params) throws SQLException {
         try (PreparedStatement stmt = prepareStatement(query, params);
              ResultSet rs = stmt.executeQuery()) {
@@ -55,10 +49,44 @@ class DBManager {
         }
     }
 
-    // Method to execute an update (INSERT, UPDATE, DELETE)
+    // Method to execute INSERT, UPDATE, DELETE
     public int executeUpdate(String query, Object... params) throws SQLException {
         try (PreparedStatement stmt = prepareStatement(query, params)) {
             return stmt.executeUpdate();
         }
+    }
+
+    // Abstract method for initializing the connection
+    protected abstract String initializeDBPath();
+
+    // Close connection method
+    public void close() {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing database connection: " + e.getMessage());
+            }
+        }
+    }
+}
+
+
+
+class DBManager extends AbstractDBManager {
+
+    public DBManager() {
+        super(buildDbUrl());
+    }
+
+    @Override
+    protected String initializeDBPath() {
+        return System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "com" + File.separator + "a2zbuysell" + File.separator + "a2zbuysell" + File.separator + "mydatabase.db";
+    }
+
+    private static String buildDbUrl() {
+        String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "com" + File.separator + "a2zbuysell" + File.separator + "a2zbuysell" + File.separator + "mydatabase.db";
+        String url = "jdbc:sqlite:" + dbPath;
+        return url;
     }
 }

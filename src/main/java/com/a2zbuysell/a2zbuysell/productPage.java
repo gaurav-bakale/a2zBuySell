@@ -73,6 +73,7 @@ public class productPage {
 
     @FXML
     private Text titleText;
+
     // Method to initialize the page with product details
     public void initialize(Product product) throws SQLException {
 
@@ -93,8 +94,6 @@ public class productPage {
         descriptionText.setText(product.getDescription());
         postedByText.setText(product.getUsername());
         contactInformationText.setText(product.getEmail() + "\n" + product.getPhone_number());
-
-
 
     }
 
